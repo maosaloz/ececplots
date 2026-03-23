@@ -1,0 +1,39 @@
+{
+    "Finance": {
+        "Government expenditure on educational institutions": {
+            "Measure": "Percentage of GDP per capita",
+            "Time period": "2010-2023",
+            "Source": "Education at a Glance",
+            "API": "https://sdmx.oecd.org/public/rest/data/OECD.EDU.IMEP,DSD_EAG_UOE_FIN@DF_UOE_INDIC_FIN_PERSTUD,3.1/..ISCED11_0+ISCED11_01+ISCED11_02.S13.INST_EDU.DIR_EXP..PT_B1GQ_POP.?startPeriod=2010&endPeriod=2023&dimensionAtObservation=AllDimensions&format=csvfilewithlabels"
+        },
+        "Private expenditure on educational institutions": {
+            "Measure": "Percentage of GDP per capita",
+            "Time period": "2010-2023",
+            "Source": "Education at a Glance",
+            "API": "https://sdmx.oecd.org/public/rest/data/OECD.EDU.IMEP,DSD_EAG_UOE_FIN@DF_UOE_INDIC_FIN_PERSTUD,3.1/..ISCED11_0+ISCED11_01+ISCED11_02.S1D_NON_EDU.INST_EDU.DIR_EXP..PT_B1GQ_POP.?startPeriod=2010&endPeriod=2023&dimensionAtObservation=AllDimensions&format=csvfilewithlabels"
+        }
+    },
+    "Participation": {
+        "Enrolment rate, ages 0-2": {
+            "Measure": "Percent of population in same subgroup",
+            "Time period": "2013-2023",
+            "Source": "Education at a Glance",
+            "API": "https://sdmx.oecd.org/public/rest/data/OECD.EDU.IMEP,DSD_EAG_UOE_NON_FIN_STUD@DF_UOE_NF_ENRL_RATE,1.0/.ISCED11_0......A......_T.Y_LT2?endPeriod=2023&dimensionAtObservation=AllDimensions&format=csvfilewithlabels"
+        },
+        "Enrolment rate, ages 3-5": {
+            "Measure": "Percent of population in same subgroup",
+            "Time period": "2013-2023",
+            "Source": "Education at a Glance",
+            "API": "https://sdmx.oecd.org/public/rest/data/OECD.EDU.IMEP,DSD_EAG_UOE_NON_FIN_STUD@DF_UOE_NF_ENRL_RATE,1.0/.ISCED11_0......A......_T.Y_LT2?endPeriod=2023&dimensionAtObservation=AllDimensions&format=csvfilewithlabels"
+        }
+    },
+    "Spatial Accessibility": {
+        "Population with access to at least one service point": {
+            "Measure": "Share of population within a 15-minute walk",
+            "Time period": "",
+            "Source": "Regions and Cities at a Glance, 2024",
+            "API": "https://sdmx.oecd.org/public/rest/data/OECD.CFE.EDS,DSD_FUA_TRAN@DF_SERVICE_ACCESS,1.1/.A.....MN_LE15.CHILDCARE?startPeriod=2020&dimensionAtObservation=AllDimensions&format=csvfilewithlabels"
+        }
+    }
+
+}
