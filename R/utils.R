@@ -17,16 +17,16 @@
 #' \describe{
 #'   \item{"1/3"}{One-third-page width (6 in)}
 #'   \item{"1/2"}{Half-page width (9.5 in)}
-#'   \item{"2/3"}{Two-thirds-page width (13 in)}
-#'   \item{"full"}{Full-page width (19 in)}
+#'   \item{"2/3"}{Two-thirds-page width (13.5 in)}
+#'   \item{"full"}{Full-page width (18.6 in)}
 #' }
 #'
 #' @export
 ECEC_WIDTHS <- c(
   "1/3"  =  6,
   "1/2"  =  9.5,
-  "2/3"  = 13,
-  "full" = 19
+  "2/3"  = 13.5,
+  "1" = 18.6
 )
 
 #' Figure height dictionary (inches)
@@ -36,16 +36,49 @@ ECEC_WIDTHS <- c(
 #' \code{\link{ecec_base}}.
 #'
 #' \describe{
-#'   \item{"small"}{Small figure height (4 in)}
-#'   \item{"medium"}{Medium figure height (6 in)}
-#'   \item{"large"}{Large figure height (9 in)}
+#'   \item{"1/3"}{One-third-page height (6 in)}
+#'   \item{"1/2"}{Half-page height (9.5 in)}
+#'   \item{"2/3"}{Two-thirds-page height (12 in)}
+#'   \item{"full"}{Full-page height (21 in)}
 #' }
 #'
 #' @export
 ECEC_HEIGHTS <- c(
-  "small"  = 4,
-  "medium" = 6,
-  "large"  = 9
+  "1/3"  =  6,
+  "1/2"  =  9.5,
+  "2/3"  = 12,
+  "1" = 21
+)
+
+# ── Text size dictionary ─────────────────────────────────────────────────────
+
+#' Default text sizes used throughout ececplots
+#'
+#' A named numeric vector that defines the default font sizes used by
+#' \code{ecec_theme()}. All sizes are specified in points and can be scaled
+#' globally using the \code{text_scale} argument.
+#'
+#' \describe{
+#'   \item{"axis_title"}{Axis title font size (12 pt)}
+#'   \item{"axis_text"}{Axis tick label font size (11 pt)}
+#'   \item{"legend_title"}{Legend title font size (12 pt)}
+#'   \item{"legend_text"}{Legend label font size (11 pt)}
+#'   \item{"strip_text"}{Facet strip label font size (11 pt)}
+#'   \item{"plot_title"}{Plot title font size (14 pt)}
+#'   \item{"plot_subtitle"}{Plot subtitle font size (12 pt)}
+#'   \item{"plot_caption"}{Plot caption font size (11 pt)}
+#' }
+#'
+#' @keywords internal
+ECEC_TEXT_SIZES <- c(
+  axis_title   = 60,
+  axis_text    = 55,
+  legend_title = 60,
+  legend_text  = 55,
+  strip_text   = 55,
+  plot_title   = 70,
+  plot_subtitle = 60,
+  plot_caption = 55
 )
 
 # ── Dimension helpers ─────────────────────────────────────────────────────────
@@ -92,9 +125,9 @@ ecec_get_width <- function(width = "1/2") {
 #' @export
 #'
 #' @examples
-#' ecec_get_height("medium")  # 6
+#' ecec_get_height("1/2")  # 9.5
 #' ecec_get_height(5)         # 5
-ecec_get_height <- function(height = "medium") {
+ecec_get_height <- function(height = "1/2") {
   if (is.character(height)) {
     if (!height %in% names(ECEC_HEIGHTS)) {
       stop(
@@ -193,13 +226,17 @@ ecec_load_fonts <- function() {
 #' Inherits from \code{\link[ggplot2]{theme_bw}} and applies the font loaded
 #' by \code{\link{ecec_load_fonts}}.
 #'
-#' @param base_size Base font size in points (default \code{11}).
+#' @param text_scale Scaling factor for text sizes (default \code{1}).
 #' @param legend_position Position of the legend; passed directly to
 #'   \code{ggplot2::theme(legend.position = ...)}.
+#' @param legend_nrow Number of rows in the legend (default \code{NULL}: automatic).
+#' @param legend_ncol Number of columns in the legend (default \code{NULL}: automatic).
+#' @param x_angle Rotation angle for x-axis labels in degrees (default \code{0}).
+#' @param y_angle Rotation angle for y-axis labels in degrees (default \code{0}).
 #'
 #' @return A \code{ggplot2::theme} object.
 #' @importFrom ggplot2 theme_bw theme element_text element_blank element_line
-#'   element_rect margin rel
+#'   element_rect margin guide_legend
 #' @export
 #'
 #' @examples
@@ -207,57 +244,72 @@ ecec_load_fonts <- function() {
 #' ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_point() +
 #'   ecec_theme()
-ecec_theme <- function(base_size = 11, legend_position = "bottom") {
+ecec_theme <- function(text_scale = text_scale, legend_position = "top", 
+                       legend_nrow = NULL, legend_ncol = NULL,
+                       x_angle = 0, y_angle = 0) {
   font <- .ecec_font$name
 
-  ggplot2::theme_bw(base_size = base_size, base_family = font) +
+  theme_obj <- ggplot2::theme_bw(base_family = font) +
     ggplot2::theme(
       # Panel
-      panel.grid.major   = ggplot2::element_line(colour = "#e5e5e5",
+      panel.grid.major   = ggplot2::element_line(colour = "#FFFFFF",
                                                   linewidth = 0.4),
       panel.grid.minor   = ggplot2::element_blank(),
-      panel.border       = ggplot2::element_rect(colour = "#cccccc",
+      panel.border       = ggplot2::element_rect(colour = "#000000",
                                                   fill = NA, linewidth = 0.6),
-      panel.background   = ggplot2::element_rect(fill = "white"),
+      panel.background   = ggplot2::element_rect(fill = "#E5E5E5"),
       # Axes
-      axis.title         = ggplot2::element_text(size = ggplot2::rel(0.9),
-                                                  colour = "#333333"),
-      axis.text          = ggplot2::element_text(size = ggplot2::rel(0.8),
-                                                  colour = "#555555"),
-      axis.ticks         = ggplot2::element_line(colour = "#cccccc",
+      axis.title         = ggplot2::element_text(size = ECEC_TEXT_SIZES["axis_title"] * text_scale,
+                                                  colour = "#000000",
+                                                  margin = ggplot2::margin(t = 5, r = 5, b = 5, l = 5)),
+      axis.text.x        = ggplot2::element_text(size = ECEC_TEXT_SIZES["axis_text"] * text_scale,
+                                                  colour = "#000000",
+                                                  angle = x_angle,
+                                                  hjust = if (x_angle != 0) 1 else 0.5,
+                                                  vjust = if (x_angle != 0) 0.5 else 1),
+      axis.text.y        = ggplot2::element_text(size = ECEC_TEXT_SIZES["axis_text"] * text_scale,
+                                                  colour = "#000000",
+                                                  angle = y_angle,
+                                                  hjust = if (y_angle != 0) 0.5 else 1,
+                                                  vjust = if (y_angle != 0) 0.5 else 0.5),
+      axis.ticks         = ggplot2::element_line(colour = "#000000",
                                                   linewidth = 0.4),
       # Legend
       legend.position    = legend_position,
-      legend.title       = ggplot2::element_text(size = ggplot2::rel(0.85),
-                                                  colour = "#333333"),
-      legend.text        = ggplot2::element_text(size = ggplot2::rel(0.8),
-                                                  colour = "#555555"),
-      legend.background  = ggplot2::element_rect(fill = "white",
-                                                  colour = NA),
-      legend.key         = ggplot2::element_rect(fill = "white",
+      legend.title       = ggplot2::element_blank(),
+      legend.text        = ggplot2::element_text(size = ECEC_TEXT_SIZES["legend_text"] * text_scale,
+                                                  colour = "#000000"),
+      legend.background  = ggplot2::element_rect(fill = "#E5E5E5",
+                                                  colour = "#000000",
+                                                  linewidth = 0.6),
+      legend.key         = ggplot2::element_rect(fill = "#E5E5E5",
                                                   colour = NA),
       # Strip (facet labels)
       strip.background   = ggplot2::element_rect(fill = "#f5f5f5",
                                                   colour = "#cccccc"),
-      strip.text         = ggplot2::element_text(size = ggplot2::rel(0.85),
-                                                  colour = "#333333"),
+      strip.text         = ggplot2::element_text(size = ECEC_TEXT_SIZES["strip_text"] * text_scale,
+                                                  colour = "#000000"),
       # Plot title / subtitle / caption
-      plot.title         = ggplot2::element_text(size = ggplot2::rel(1.1),
-                                                  colour = "#111111",
+      plot.title         = ggplot2::element_text(size = ECEC_TEXT_SIZES["plot_title"] * text_scale,
+                                                  colour = "#000000",
                                                   face = "bold",
-                                                  margin = ggplot2::margin(
-                                                    b = 6)),
-      plot.subtitle      = ggplot2::element_text(size = ggplot2::rel(0.9),
-                                                  colour = "#555555",
-                                                  margin = ggplot2::margin(
-                                                    b = 8)),
-      plot.caption       = ggplot2::element_text(size = ggplot2::rel(0.75),
-                                                  colour = "#888888",
+                                                  margin = margin(b = 6 * text_scale)),
+      plot.subtitle      = ggplot2::element_text(size = ECEC_TEXT_SIZES["plot_subtitle"] * text_scale,
+                                                  colour = "#000000",
+                                                  margin = margin(b = 8 * text_scale)),
+      plot.caption       = ggplot2::element_text(size = ECEC_TEXT_SIZES["plot_caption"] * text_scale,
+                                                  colour = "#000000",
                                                   hjust = 1),
-      plot.background    = ggplot2::element_rect(fill = "white",
+      plot.background    = ggplot2::element_rect(fill = "#FFFFFF",
                                                   colour = NA),
-      plot.margin        = ggplot2::margin(10, 10, 10, 10)
+      plot.margin        = ggplot2::margin(
+        10 * text_scale, 
+        10 * text_scale, 
+        10 * text_scale, 
+        10 * text_scale)
     )
+  
+  theme_obj
 }
 
 # ── Package initialisation ────────────────────────────────────────────────────

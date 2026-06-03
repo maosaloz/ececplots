@@ -43,7 +43,7 @@ enrol_02_sub <- enrol_02[enrol_02$country %in% sel_countries &
 enrol_35_sub <- enrol_35[enrol_35$country %in% sel_countries &
                             !is.na(enrol_35$enrol_35), ]
 
-layout <- ecec_base(width = "2/3", height = "medium")
+layout <- ecec_base(width = "2/3", height = "2/3")
 
 # ── ecec_bar_stacked ──────────────────────────────────────────────────────────
 
@@ -55,10 +55,11 @@ p_stacked_v <- ecec_bar_stacked(
   fill        = "exp_type",
   orientation = "vertical",
   position    = "stack",
-  title       = "ECEC Expenditure by Country (Stacked, Vertical)",
-  subtitle    = "Government and private expenditure, % GDP per capita, 2022",
-  x_label     = "Country",
-  y_label     = "Expenditure (% GDP per capita)"
+  title       = "Government and private expenditure on ECEC",
+  subtitle    = "Percent of GDP per capita, 2022",
+  x_label     = "",
+  y_label     = "", 
+  x_angle     = 90
 )
 ecec_save(p_stacked_v,
           file   = file.path(out_dir, "ecec_bar_stacked.png"),
@@ -128,11 +129,12 @@ p_bar_scatter_v <- ecec_bar_scatter(
   title         = "ECEC Enrolment Rate Ages 0–2 (Bar + Scatter, Vertical)",
   subtitle      = "Mean bar with individual country values overlaid, 2023",
   x_label       = "Year",
-  y_label       = "Enrolment rate (%)"
+  y_label       = "Enrolment rate (%)",
+  text_scale    = 0.5
 )
 ecec_save(p_bar_scatter_v,
           file   = file.path(out_dir, "ecec_bar_scatter.png"),
-          layout = ecec_base(width = "1/3", height = "medium"))
+          layout = ecec_base(width = "1/3", height = "1/3"))
 
 # 6. Horizontal bar + scatter: enrolment 3-5 by country
 p_bar_scatter_h <- ecec_bar_scatter(

@@ -1,26 +1,27 @@
 test_that("ECEC_WIDTHS has the correct values", {
   expect_equal(ECEC_WIDTHS[["1/3"]],  6)
   expect_equal(ECEC_WIDTHS[["1/2"]],  9.5)
-  expect_equal(ECEC_WIDTHS[["2/3"]],  13)
-  expect_equal(ECEC_WIDTHS[["full"]], 19)
+  expect_equal(ECEC_WIDTHS[["2/3"]],  13.5)
+  expect_equal(ECEC_WIDTHS[["1"]], 18.6)
 })
 
 test_that("ECEC_HEIGHTS has the correct values", {
-  expect_equal(ECEC_HEIGHTS[["small"]],  4)
-  expect_equal(ECEC_HEIGHTS[["medium"]], 6)
-  expect_equal(ECEC_HEIGHTS[["large"]],  9)
+  expect_equal(ECEC_HEIGHTS[["1/3"]],  6)
+  expect_equal(ECEC_HEIGHTS[["1/2"]], 9.5)
+  expect_equal(ECEC_HEIGHTS[["2/3"]], 12)
+  expect_equal(ECEC_HEIGHTS[["1"]], 21)
 })
 
 test_that("ecec_get_width resolves keys correctly", {
   expect_equal(ecec_get_width("1/3"),  6)
   expect_equal(ecec_get_width("1/2"),  9.5)
-  expect_equal(ecec_get_width("2/3"),  13)
-  expect_equal(ecec_get_width("full"), 19)
+  expect_equal(ecec_get_width("2/3"),  13.5)
+  expect_equal(ecec_get_width("1"), 18.6)
 })
 
 test_that("ecec_get_width accepts numeric input", {
-  expect_equal(ecec_get_width(7), 7)
-  expect_equal(ecec_get_width(12.3), 12.3)
+  expect_equal(ecec_get_width(9.5), 9.5)
+  expect_equal(ecec_get_width(13.5), 13.5)
 })
 
 test_that("ecec_get_width errors on bad input", {
@@ -30,14 +31,15 @@ test_that("ecec_get_width errors on bad input", {
 })
 
 test_that("ecec_get_height resolves keys correctly", {
-  expect_equal(ecec_get_height("small"),  4)
-  expect_equal(ecec_get_height("medium"), 6)
-  expect_equal(ecec_get_height("large"),  9)
+  expect_equal(ecec_get_height("1/3"),  6)
+  expect_equal(ecec_get_height("1/2"), 9.5)
+  expect_equal(ecec_get_height("2/3"), 12)
+  expect_equal(ecec_get_height("1"), 21)
 })
 
 test_that("ecec_get_height accepts numeric input", {
-  expect_equal(ecec_get_height(5),   5)
-  expect_equal(ecec_get_height(8.5), 8.5)
+  expect_equal(ecec_get_height(6),   6)
+  expect_equal(ecec_get_height(12), 12)
 })
 
 test_that("ecec_get_height errors on bad input", {
