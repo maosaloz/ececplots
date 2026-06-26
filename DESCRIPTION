@@ -1,31 +1,29 @@
 Package: ececplots
 Type: Package
-Title: ECEC/ECS Teams Visualization Package
+Title: Standardized Visualization Tools for ECEC and ECS Teams
 Version: 0.1.0
 Authors@R:
     person("ECEC/ECS Team", role = c("aut", "cre"),
-           email = "team@example.com")
-Description: A dedicated visualization package for the ECEC/ECS teams.
-    Provides standardized scatterplots and barplots with a consistent base
-    frame that controls figure dimensions and panel layout. All plots share
-    the same width/height dictionaries and load custom fonts from the
-    package fonts directory. An Excel macro companion allows figures to be
-    exported to Excel with the underlying data attached.
+           email = "Mauricio.SALAZAR-LOZADA@oecd.org")
+Description: Provides standardized scatterplots and barplots for the
+    ECEC and ECS teams with a consistent base frame that controls figure
+    dimensions and panel layout. All plots share the same width and height
+    dictionaries and load custom fonts from the package fonts directory.
+    An Excel macro companion allows figures to be exported to Excel with
+    the underlying data attached.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Imports:
     ggplot2 (>= 3.4.0),
     patchwork (>= 1.1.0),
     rlang (>= 1.0.0),
     showtext (>= 0.9),
-    sysfonts (>= 0.8),
-    tools
+    sysfonts (>= 0.8)
 Suggests:
     openxlsx (>= 4.2.0),
     testthat (>= 3.0.0),
     knitr,
     rmarkdown
-RoxygenNote: 7.3.1
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+Config/roxygen2/version: 8.0.0

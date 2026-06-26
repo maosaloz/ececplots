@@ -61,5 +61,5 @@ example1 <- ecec_bar_stacked(
   legend_ncol = 1
 )
 ecec_save(example1,
-          file   = file.path(out_dir, "TALIS Figure 9.4.png"),
+          file   = file.path(out_dir, "TALIS_Figure_9_4.png"),
           layout = ecec_base(width = "2/3", height = "2/3"))

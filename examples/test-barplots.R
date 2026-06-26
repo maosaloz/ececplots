@@ -5,7 +5,7 @@ library(readxl)
 out_dir <- here::here("examples", "output", "barplots")
 dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
-data_path <- here::here("data", "data.xlsx")
+data_path <- here::here("inst", "extdata", "data.xlsx")
 
 # Load sheets
 gov_exp  <- read_excel(data_path, sheet = "Government expenditure on educa")

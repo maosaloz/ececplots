@@ -39,14 +39,14 @@
 #' layout <- ecec_base()
 #'
 #' # Full-page-wide, large, 2×3 grid of panels
-#' layout <- ecec_base(width = "full", height = "large",
+#' layout <- ecec_base(width = "1/2", height = "1/2",
 #'                     n_panels = 6, n_rows = 2, n_cols = 3)
 #'
 #' # Custom numeric dimensions
 #' layout <- ecec_base(width = 12, height = 8, n_panels = 4,
 #'                     n_rows = 2, n_cols = 2)
 ecec_base <- function(width    = "1/2",
-                      height   = "medium",
+                      height   = "1/2",
                       n_panels = 1L,
                       n_rows   = 1L,
                       n_cols   = 1L) {

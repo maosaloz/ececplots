@@ -68,7 +68,7 @@
 #'   country = rep(c("A", "B", "C"), times = 2),
 #'   level   = rep(c("ISCED 02", "Under age 3"), each = 3),
 #'   segment = rep(c("X", "Y", "Z"), times = 2),
-#'   value   = c(10, 15, 8, 12, 9, 14, 7, 11, 13, 14)
+#'   value   = c(10, 15, 8, 12, 9, 14)
 #' )
 #' ecec_bar_stacked(df_facet, x = "country", y = "value", fill = "segment",
 #'                  facet = "level")
@@ -101,36 +101,6 @@ ecec_bar_stacked <- function(data,
   # Remove rows where x variable is NA
   data <- data[!is.na(data[[x]]), ]
 
-  if (!is.null(facet_col)) {
-    # Determine which facet levels to process
-    facet_levels <- if (!is.null(facet_var)) facet_var else unique(data[[facet_col]])
-    
-    # Process each facet level separately
-    data_list <- lapply(facet_levels, function(level) {
-      # Filter to current facet level
-      subset_data <- data[data[[facet_col]] == level, ]
-      
-      # Remove rows where y is NA
-      subset_data <- subset_data[!is.na(subset_data[[y]]), ]
-      
-      # Drop unused x levels for this facet level only
-      subset_data[[x]] <- droplevels(factor(subset_data[[x]]))
-      subset_data[[facet_col]] <- factor(subset_data[[facet_col]], levels = level)
-      
-      return(subset_data)
-    })
-    
-    # Combine all processed facet levels
-    data <- do.call(rbind, data_list)
-    
-    # Reset both factors to only include levels present in combined data
-    data[[facet_col]] <- droplevels(factor(data[[facet_col]]))
-    data[[x]] <- droplevels(factor(data[[x]]))
-  } else {
-    # Even without faceting, ensure x is a factor with only present levels
-    data[[x]] <- droplevels(factor(data[[x]]))
-  }
-
   x_lab <- if (!is.null(x_label)) x_label else x
   y_lab <- if (!is.null(y_label)) y_label else y
 
@@ -154,7 +124,11 @@ ecec_bar_stacked <- function(data,
     ggplot2::guides(fill = ggplot2::guide_legend(nrow = legend_nrow, ncol = legend_ncol))
 
   if (!is.null(facet_col)) {
-    p <- p + ggplot2::facet_wrap(stats::as.formula(paste("~", facet_col)))
+    p <- p + ggplot2::facet_wrap(
+      stats::as.formula(paste("~", facet_col)),
+      scales = "free_x",
+      space  = "free_x"
+    )
   }
 
   if (orientation == "horizontal") p <- p + ggplot2::coord_flip()

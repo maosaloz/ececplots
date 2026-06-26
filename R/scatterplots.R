@@ -29,7 +29,7 @@
 #' @param caption  Plot caption (default \code{NULL}).
 #' @param x_label  x-axis label; defaults to the column name.
 #' @param y_label  y-axis label; defaults to the column name.
-#' @param base_size Base font size forwarded to \code{\link{ecec_theme}}.
+#' @param text_scale  Scaling factor for text sizes (default \code{1}).
 #'
 #' @return A \code{ggplot} object.
 #' @importFrom ggplot2 ggplot aes geom_point labs
@@ -42,15 +42,16 @@
 ecec_scatter <- function(data,
                          x,
                          y,
-                         colour    = NULL,
-                         size      = 2.5,
-                         alpha     = 0.8,
-                         title     = NULL,
-                         subtitle  = NULL,
-                         caption   = NULL,
-                         x_label   = NULL,
-                         y_label   = NULL,
-                         base_size = 11) {
+                         colour     = NULL,
+                         size       = 2.5,
+                         alpha      = 0.8,
+                         title      = NULL,
+                         subtitle   = NULL,
+                         caption    = NULL,
+                         x_label    = NULL,
+                         y_label    = NULL,
+                         text_scale = 1
+                         ) {
   x <- as.character(rlang::ensym(x))
   y <- as.character(rlang::ensym(y))
   .check_cols(data, x, y, colour)
@@ -75,7 +76,7 @@ ecec_scatter <- function(data,
                   caption  = caption,
                   x        = x_lab,
                   y        = y_lab) +
-    ecec_theme(base_size = base_size)
+    ecec_theme(text_scale = text_scale)
 }
 
 # ── ecec_scatter_quadrant ─────────────────────────────────────────────────────
@@ -103,7 +104,7 @@ ecec_scatter <- function(data,
 #' @param caption   Plot caption.
 #' @param x_label   x-axis label; defaults to the column name.
 #' @param y_label   y-axis label; defaults to the column name.
-#' @param base_size Base font size forwarded to \code{\link{ecec_theme}}.
+#' @param text_scale  Scaling factor for text sizes (default \code{1}).
 #'
 #' @return A \code{ggplot} object.
 #' @importFrom ggplot2 ggplot aes geom_point geom_hline geom_vline labs
@@ -130,7 +131,7 @@ ecec_scatter_quadrant <- function(data,
                                   caption      = NULL,
                                   x_label      = NULL,
                                   y_label      = NULL,
-                                  base_size    = 11) {
+                                  text_scale   = 1) {
   x <- as.character(rlang::ensym(x))
   y <- as.character(rlang::ensym(y))
   .check_cols(data, x, y, colour)
@@ -163,7 +164,7 @@ ecec_scatter_quadrant <- function(data,
                   caption  = caption,
                   x        = x_lab,
                   y        = y_lab) +
-    ecec_theme(base_size = base_size)
+    ecec_theme(text_scale = text_scale)
 }
 
 # ── ecec_scatter_connected ────────────────────────────────────────────────────
@@ -190,7 +191,7 @@ ecec_scatter_quadrant <- function(data,
 #' @param caption     Plot caption.
 #' @param x_label     x-axis label; defaults to the column name.
 #' @param y_label     y-axis label; defaults to the column name.
-#' @param base_size   Base font size forwarded to \code{\link{ecec_theme}}.
+#' @param text_scale  Scaling factor for text sizes (default \code{1}).
 #'
 #' @return A \code{ggplot} object.
 #' @importFrom ggplot2 ggplot aes geom_point geom_line labs
@@ -214,7 +215,7 @@ ecec_scatter_connected <- function(data,
                                    caption    = NULL,
                                    x_label    = NULL,
                                    y_label    = NULL,
-                                   base_size  = 11) {
+                                   text_scale = 1) {
   x <- as.character(rlang::ensym(x))
   y <- as.character(rlang::ensym(y))
 
@@ -254,5 +255,5 @@ ecec_scatter_connected <- function(data,
                   caption  = caption,
                   x        = x_lab,
                   y        = y_lab) +
-    ecec_theme(base_size = base_size)
+    ecec_theme(text_scale = text_scale)
 }

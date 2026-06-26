@@ -235,8 +235,7 @@ ecec_load_fonts <- function() {
 #' @param y_angle Rotation angle for y-axis labels in degrees (default \code{0}).
 #'
 #' @return A \code{ggplot2::theme} object.
-#' @importFrom ggplot2 theme_bw theme element_text element_blank element_line
-#'   element_rect margin guide_legend
+#' @importFrom ggplot2 theme_bw theme element_text element_blank element_line element_rect margin guide_legend
 #' @export
 #'
 #' @examples
@@ -244,7 +243,7 @@ ecec_load_fonts <- function() {
 #' ggplot(mtcars, aes(wt, mpg)) +
 #'   geom_point() +
 #'   ecec_theme()
-ecec_theme <- function(text_scale = text_scale, legend_position = "top", 
+ecec_theme <- function(text_scale = 1, legend_position = "top", 
                        legend_nrow = NULL, legend_ncol = NULL,
                        x_angle = 0, y_angle = 0) {
   font <- .ecec_font$name
